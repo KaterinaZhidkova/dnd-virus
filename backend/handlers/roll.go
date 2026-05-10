@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"net/http"
 
-	"github.com/KaterinaZhidkova/dnd-virus/backend/attacks"
+	"dnd-virus/attacks"
 )
 
 type RollResponse struct {
@@ -15,6 +15,15 @@ type RollResponse struct {
 }
 
 func RollHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -30,16 +39,6 @@ func RollHandler(w http.ResponseWriter, r *http.Request) {
 		Roll:        roll,
 		Action:      action,
 		Description: description,
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
-	if r.Method == http.MethodOptions {
-		w.WriteHeader(http.StatusOK)
-		return
 	}
 
 	json.NewEncoder(w).Encode(response)

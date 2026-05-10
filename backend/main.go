@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/KaterinaZhidkova/dnd-virus/backend/handlers"
+	"dnd-virus/handlers"
 )
 
 func main() {
