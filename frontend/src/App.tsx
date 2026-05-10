@@ -1,122 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import Dice from './components/Dice';
+import RollButton from './components/RollButton';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [rolling, setRolling] = useState(false);
+  const [result, setResult] = useState<number | null>(null);
+
+  const handleRoll = () => {
+    setRolling(true);
+    
+    const randomNumber = Math.floor(Math.random() * 20) + 1;
+    
+    setTimeout(() => {
+      setResult(randomNumber);
+      setRolling(false);
+    }, 600);
+  };
+
+  const getActionDescription = (roll: number) => {
+    if (roll === 1) return "Критическая неудача - краш";
+    if (roll === 20) return "Критическая удача";
+    if (roll <= 5) return "Запуск форк-бомбы"; // 2-5
+    if (roll <= 10) return "Заполнение диска"; // 6-10
+    if (roll <= 15) return "Блокировка сети"; // 11-15
+    return "Открыть какие-то заготовленные вкладки в браузере"; // 16-19
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      <header className="header">
+        <h1>DnD Roll dice</h1>
+        <p>Кинь кубик - узнаешь свою судьбу</p>
+      </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <main>
+        <Dice rolling={rolling} result={result} />
+        <RollButton onClick={handleRoll} disabled={rolling} />
+        
+        {result !== null && !rolling && (
+          <div className="result">
+            <p>{getActionDescription(result)}</p>
+          </div>
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;

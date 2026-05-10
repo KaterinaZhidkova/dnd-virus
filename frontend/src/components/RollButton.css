@@ -1,0 +1,19 @@
+.roll-button {
+  background: linear-gradient(135deg, #e94560, #c62a4a);
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: monospace;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: block;
+  margin: 20px auto;
+}
+
+.roll-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

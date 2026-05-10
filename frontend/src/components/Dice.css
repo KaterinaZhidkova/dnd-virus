@@ -1,0 +1,21 @@
+.dice-container {
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+}
+
+.dice-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dice-container.rolling {
+  animation: shake 0.08s infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-5px, -3px); }
+  75% { transform: translate(5px, 3px); }
+}
