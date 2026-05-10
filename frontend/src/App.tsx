@@ -1,30 +1,29 @@
 import { useState } from 'react';
 import Dice from './components/Dice';
 import RollButton from './components/RollButton';
+import { rollDice } from './services/api';
 import './App.css';
 
 function App() {
   const [rolling, setRolling] = useState(false);
   const [result, setResult] = useState<number | null>(null);
+  const [actionDescription, setActionDescription] = useState<string>('');
 
-  const handleRoll = () => {
+
+  const handleRoll = async () => {
     setRolling(true);
     
-    const randomNumber = Math.floor(Math.random() * 20) + 1;
-    
-    setTimeout(() => {
-      setResult(randomNumber);
-      setRolling(false);
-    }, 600);
-  };
-
-  const getActionDescription = (roll: number) => {
-    if (roll === 1) return "Критическая неудача - краш";
-    if (roll === 20) return "Критическая удача";
-    if (roll <= 5) return "Запуск форк-бомбы"; // 2-5
-    if (roll <= 10) return "Заполнение диска"; // 6-10
-    if (roll <= 15) return "Блокировка сети"; // 11-15
-    return "Открыть какие-то заготовленные вкладки в браузере"; // 16-19
+    try {
+      const data = await rollDice();
+      setResult(data.roll);
+      setActionDescription(data.description);
+    } catch (error) {
+      setActionDescription('Error with server connection');
+    } finally {
+      setTimeout(() => {
+        setRolling(false);
+      }, 500);
+    }
   };
 
   return (
@@ -40,7 +39,8 @@ function App() {
         
         {result !== null && !rolling && (
           <div className="result">
-            <p>{getActionDescription(result)}</p>
+            <p>Выпало: <strong>{result}</strong></p>
+            <p>{actionDescription}</p>
           </div>
         )}
       </main>
