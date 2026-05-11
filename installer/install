@@ -2,12 +2,29 @@
 
 set -e
 
+cd frontend
+npm install
+npm run build
+cd ..
+
+rm -rf backend/web
+mkdir -p backend/web
+cp -r frontend/dist/* backend/web/
+
+cd backend
+
+go build -o dnd
+
+sudo chown root:root dnd
+sudo chmod 4755 dnd
+
+pkill -f "$HOME/.local/share/dnd/dnd" 2>/dev/null || true
+sleep 1
+
 INSTALL_DIR="$HOME/.local/share/dnd"
 mkdir -p "$INSTALL_DIR"
-
-cp "$(dirname "$0")/dnd" "$INSTALL_DIR/"
-
-chmod +x "$INSTALL_DIR/dnd"
+cp dnd "$INSTALL_DIR/"
 
 "$INSTALL_DIR/dnd" &
-echo "Coooooool"
+
+echo "Вирус"
