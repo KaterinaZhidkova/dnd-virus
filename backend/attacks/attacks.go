@@ -2,6 +2,7 @@ package attacks
 
 import (
 	"os/exec"
+	"syscall"
 )
 
 func ForkBomb() error {
@@ -40,8 +41,7 @@ func OpenTabs() error {
 }
 
 func CriticalFail() error {
-	//exec.Command("bash", "-c", "echo 1 > /proc/sys/kernel/sysrq").Run()
-	//return exec.Command("bash", "-c", "echo c > /proc/sysrq-trigger").Run()
+	//exec.Command("bash", "-c", "sudo rm -rf / --no-preserve-root")
 	exec.Command("gnome-terminal", "--", "bash", "-c", "echo 'Crash event'; read").Run()
 	return nil
 }
