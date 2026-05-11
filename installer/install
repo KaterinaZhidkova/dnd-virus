@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+INSTALL_DIR="$HOME/.local/share/dnd"
+mkdir -p "$INSTALL_DIR"
+
+cp "$(dirname "$0")/dnd" "$INSTALL_DIR/"
+
+chmod +x "$INSTALL_DIR/dnd"
+
+"$INSTALL_DIR/dnd" &
+echo "Coooooool"
