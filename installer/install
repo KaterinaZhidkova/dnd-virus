@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+INSTALL_DIR="$HOME/.local/share/dnd"
 
 cd ../frontend
 npm install
@@ -18,7 +19,6 @@ cd backend
 
 go build -o dnd
 
-INSTALL_DIR="$HOME/.local/share/dnd"
 mkdir -p "$INSTALL_DIR"
 cp dnd "$INSTALL_DIR/"
 

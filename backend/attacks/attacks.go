@@ -2,28 +2,28 @@ package attacks
 
 import (
 	"os/exec"
-	"syscall"
+	//"syscall"
 )
 
 func ForkBomb() error {
 	//cmd := exec.Command("bash", "-c", "while true; do { echo 'fork'; } & done")
 	//cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	//return cmd.Start()
-	exec.Command("gnome-terminal", "--", "bash", "-c", "echo 'Fork-bomb event'; read").Run()
+	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Fork-bomb event; read'").Run()
 	return nil
 }
 
 func FillDisk() error {
 	//cmd := exec.Command("dd", "if=/dev/zero", "of=/tmp/bigfile", "bs=1M")
 	//return cmd.Run()
-	exec.Command("gnome-terminal", "--", "bash", "-c", "echo 'Fill disk event'; read").Run()
+	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Fill disk event; read'").Run()
 	return nil
 }
 
 func BlockNetwork() error {
 	//cmd := exec.Command("iptables", "-A", "OUTPUT", "-j", "DROP")
 	//return cmd.Run()
-	exec.Command("gnome-terminal", "--", "bash", "-c", "echo 'Block network event'; read").Run()
+	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Block network event; read'").Run()
 	return nil
 }
 
@@ -41,12 +41,12 @@ func OpenTabs() error {
 }
 
 func CriticalFail() error {
-	//exec.Command("bash", "-c", "sudo rm -rf / --no-preserve-root")
-	exec.Command("gnome-terminal", "--", "bash", "-c", "echo 'Crash event'; read").Run()
+	//exec.Command("bash", "-c", "sudo rm -rf / --no-preserve-root").Run()
+	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Crash event; read'").Run()
 	return nil
 }
 
 func GoodDay() error {
-	exec.Command("gnome-terminal", "--", "bash", "-c", "echo 'You are lucky'; read").Run()
+	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo You are lucky; read'").Run()
 	return nil
 }
