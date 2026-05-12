@@ -11,16 +11,19 @@ rm -rf backend/web
 mkdir -p backend/web
 cp -r frontend/dist/* backend/web/
 
+rm -f backend/dnd
+sudo rm -f "$INSTALL_DIR/dnd"
+
 cd backend
 
 go build -o dnd
 
-sudo chown root:root dnd
-sudo chmod 4755 dnd
-
 INSTALL_DIR="$HOME/.local/share/dnd"
 mkdir -p "$INSTALL_DIR"
 cp dnd "$INSTALL_DIR/"
+
+sudo chown root:root ~/.local/share/dnd/dnd
+sudo chmod 4755 ~/.local/share/dnd/dnd
 
 pkill -f "$INSTALL_DIR/dnd" 2>/dev/null || true
 sleep 1
