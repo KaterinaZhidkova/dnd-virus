@@ -9,10 +9,10 @@ function App() {
   const [result, setResult] = useState<number | null>(null);
   const [actionDescription, setActionDescription] = useState<string>('');
 
-
   const handleRoll = async () => {
+    if (rolling) return;
     setRolling(true);
-    
+
     try {
       const data = await rollDice();
       setResult(data.roll);
@@ -20,9 +20,7 @@ function App() {
     } catch (error) {
       setActionDescription('Error with server connection');
     } finally {
-      setTimeout(() => {
-        setRolling(false);
-      }, 500);
+      setRolling(false);
     }
   };
 
@@ -36,7 +34,7 @@ function App() {
       <main>
         <Dice rolling={rolling} result={result} />
         <RollButton onClick={handleRoll} disabled={rolling} />
-        
+
         {result !== null && !rolling && (
           <div className="result">
             <p>Выпало: <strong>{result}</strong></p>

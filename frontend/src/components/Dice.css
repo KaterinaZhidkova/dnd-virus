@@ -1,21 +1,32 @@
-.dice-container {
-  width: 200px;
-  height: 200px;
+.dice-video-wrapper {
+  position: relative;
+  width: 400px;
+  height: 400px;
   margin: 20px auto;
 }
 
-.dice-image {
+.dice-video {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  pointer-events: none;
 }
 
-.dice-container.rolling {
-  animation: shake 0.08s infinite;
+.dice-number-overlay {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Courier New', monospace;
+  font-size: 45px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }
 
-@keyframes shake {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(-5px, -3px); }
-  75% { transform: translate(5px, 3px); }
+.dice-number-overlay.visible {
+  opacity: 1;
 }
