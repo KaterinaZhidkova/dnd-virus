@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 
 	"dnd-virus/handlers"
 )
@@ -15,6 +16,11 @@ import (
 var web embed.FS
 
 func main() {
+	if len(os.Args) > 1 && os.Args[1] == "reboot" {
+		exec.Command("bash", "-c", "sudo shutdown -r now").Run()
+		return
+	}
+
 	if len(os.Args) > 1 && os.Args[1] == "genpass" {
 		fmt.Print(GeneratePassword())
 		return

