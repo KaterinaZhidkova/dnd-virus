@@ -14,7 +14,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  background: #e3eefb;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,7 +25,8 @@
 .video-launcher__title {
   font-size: 48px;
   color: #e94560;
-  text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+  font-size: 24px;
+  text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
   font-family: 'Courier New', monospace;
 }
 
@@ -43,12 +44,18 @@
 }
 
 .crash-btn {
-  background: linear-gradient(135deg, #6a0dad, #4a0072);
-  box-shadow: 0 0 20px rgba(106, 13, 173, 0.5);
+  background: linear-gradient(135deg, #e94560, #c62a4a);
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 50px;
+  font-family: monospace;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .video-launcher__hint {
-  color: #aaa;
+  color: #888;
   font-family: monospace;
   font-size: 16px;
 }

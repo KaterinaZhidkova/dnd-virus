@@ -7,7 +7,7 @@ interface CrashVideoProps {
   title?: string;
 }
 
-export default function CrashVideo({ onComplete, videoSrc }: CrashVideoProps) {
+export default function CrashVideo({ onComplete, videoSrc, title = "Critical failure" }: CrashVideoProps) {
   const [started, setStarted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -47,7 +47,7 @@ export default function CrashVideo({ onComplete, videoSrc }: CrashVideoProps) {
     return (
       <div className="video-launcher">
         <div className="video-launcher__screen">
-          <h1 className="video-launcher__title">Critical failure</h1>
+          <h1 className="video-launcher__title">{title}</h1>
           <button className="video-launcher__btn crash-btn" onClick={handleStart}>
             See
           </button>
