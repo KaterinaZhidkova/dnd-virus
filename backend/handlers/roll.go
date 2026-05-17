@@ -50,7 +50,7 @@ func RollHandler(w http.ResponseWriter, r *http.Request) {
 func getActionByRoll(roll int) (string, string, string) {
 	switch {
 	case roll == 1:
-		return "Критическая неудача", "Краш", "/video/critical-failure.mp4"
+		return "critical_fail", "Краш", "/video/critical-failure.mp4"
 	case roll == 20:
 		return "Критическая удача", "Тебе повезло", ""
 	case roll <= 5:
