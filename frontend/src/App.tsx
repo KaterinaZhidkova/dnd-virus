@@ -9,20 +9,20 @@ function App() {
   const [rolling, setRolling] = useState(false);
   const [result, setResult] = useState<number | null>(null);
   const [actionDescription, setActionDescription] = useState<string>('');
-  const [hasWatchedVideo, setHasWatchedVideo] = useState(false);
+  const [hasWatchedMainVideo, setHasWatchedMainVideo] = useState(false);
   const [showCrashVideo, setShowCrashVideo] = useState(false);
   const [crashVideoSrc, setCrashVideoSrc] = useState('');
 
     useEffect(() => {
-    const watched = sessionStorage.getItem('dnd_video_watched');
+    const watched = sessionStorage.getItem('dnd_main_video_watched');
     if (watched === 'true') {
-      setHasWatchedVideo(true);
+      setHasWatchedMainVideo(true);
     }
   }, []);
 
-  const handleVideoComplete = () => {
-    sessionStorage.setItem('dnd_video_watched', 'true');
-    setHasWatchedVideo(true);
+  const handleMainVideoComplete = () => {
+    sessionStorage.setItem('dnd_main_video_watched', 'true');
+    setHasWatchedMainVideo(true);
   };
 
   const handleCrashVideoComplete = () => {
@@ -52,8 +52,8 @@ function App() {
     return <VideoComponent onComplete={handleCrashVideoComplete} videoSrc={crashVideoSrc} rememberWatched={false} />;
   }
   
-  if (!hasWatchedVideo) {
-    return <VideoComponent onComplete={handleVideoComplete} videoSrc="/video/intro-video.mp4" rememberWatched={true} />;
+  if (!hasWatchedMainVideo) {
+    return <VideoComponent onComplete={handleMainVideoComplete} videoSrc="/video/intro-video.mp4" rememberWatched={true} />;
   }
 
   return (
