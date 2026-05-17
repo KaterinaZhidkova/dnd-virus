@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Dice from './components/Dice';
 import RollButton from './components/RollButton';
 import VideoComponent from './components/VideoComponent';
+import EventVideo from './components/EventVideo';
 import { rollDice } from './services/api';
 import './App.css';
 
@@ -21,7 +22,6 @@ function App() {
   }, []);
 
   const handleMainVideoComplete = () => {
-    sessionStorage.setItem('dnd_main_video_watched', 'true');
     setHasWatchedMainVideo(true);
   };
 
@@ -49,11 +49,11 @@ function App() {
   };
 
   if (showCrashVideo) {
-    return <VideoComponent onComplete={handleCrashVideoComplete} videoSrc={crashVideoSrc} rememberWatched={false} />;
+    return <VideoComponent onComplete={handleCrashVideoComplete} videoSrc={crashVideoSrc} />;
   }
   
   if (!hasWatchedMainVideo) {
-    return <VideoComponent onComplete={handleMainVideoComplete} videoSrc="/video/intro-video.mp4" rememberWatched={true} />;
+    return <VideoComponent onComplete={handleMainVideoComplete} videoSrc="/video/intro-video.mp4" />;
   }
 
   return (
