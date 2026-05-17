@@ -11,8 +11,8 @@ function App() {
   const [result, setResult] = useState<number | null>(null);
   const [actionDescription, setActionDescription] = useState<string>('');
   const [hasWatchedMainVideo, setHasWatchedMainVideo] = useState(false);
-  const [showCrashVideo, setShowCrashVideo] = useState(false);
-  const [crashVideoSrc, setCrashVideoSrc] = useState('');
+  const [showEventVideo, setShowEventVideo] = useState(false);
+  const [eventVideoSrc, setEventVideoSrc] = useState('');
 
     useEffect(() => {
     const watched = sessionStorage.getItem('dnd_main_video_watched');
@@ -22,11 +22,12 @@ function App() {
   }, []);
 
   const handleMainVideoComplete = () => {
+    sessionStorage.setItem('dnd_main_video_watched', 'true');
     setHasWatchedMainVideo(true);
   };
 
-  const handleCrashVideoComplete = () => {
-    setShowCrashVideo(false);
+  const handleEventVideoComplete = () => {
+    setShowEventVideo(false);
   };
 
   const handleRoll = async () => {
@@ -37,9 +38,9 @@ function App() {
       const data = await rollDice();
       setResult(data.roll);
       setActionDescription(data.description);
-      if (data.action === 'critical_fail' && data.videoSrc) {
-        setCrashVideoSrc(data.videoSrc);
-        setShowCrashVideo(true);
+      if (data.videoSrc) {
+        setEventVideoSrc(data.videoSrc);
+        setShowEventVideo(true);
       }
     } catch (error) {
       setActionDescription('Error with server connection');
@@ -48,8 +49,8 @@ function App() {
     }
   };
 
-  if (showCrashVideo) {
-    return <EventVideo onComplete={handleCrashVideoComplete} videoSrc={crashVideoSrc} />;
+  if (showEventVideo) {
+    return <EventVideo onComplete={handleEventVideoComplete} videoSrc={eventVideoSrc} />;
   }
   
   if (!hasWatchedMainVideo) {

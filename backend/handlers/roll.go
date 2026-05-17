@@ -52,7 +52,7 @@ func getActionByRoll(roll int) (string, string, string) {
 	case roll == 1:
 		return "critical_fail", "Краш", "/video/critical-failure.mp4"
 	case roll == 20:
-		return "Критическая удача", "Тебе повезло", ""
+		return "critical_success", "Тебе повезло", "/video/critical-luck.mp4"
 	case roll <= 5:
 		return "Форк-бома", "Запуск кучи процессов форками", ""
 	case roll <= 10:
