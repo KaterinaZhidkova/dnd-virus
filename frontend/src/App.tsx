@@ -13,6 +13,7 @@ function App() {
   const [hasWatchedMainVideo, setHasWatchedMainVideo] = useState(false);
   const [showEventVideo, setShowEventVideo] = useState(false);
   const [eventVideoSrc, setEventVideoSrc] = useState('');
+  const [eventTitle, setEventTitle] = useState('');
 
     useEffect(() => {
     const watched = sessionStorage.getItem('dnd_main_video_watched');
@@ -30,6 +31,25 @@ function App() {
     setShowEventVideo(false);
   };
 
+  const getEventTitle = (action: string): string => {
+    switch (action) {
+      case 'critical_failure':
+        return 'Critical failure!';
+      case 'critical_luck':
+        return 'Critical luck!';
+      case 'fork_bomb':
+        return 'Attention! Fork-bomb!';
+      case 'fill_disk':
+        return 'Attention! Filling disk';
+      case 'block_network':
+        return 'Attention! Block Network';
+      case 'change_password':
+        return 'Attention! Password change!';
+      default:
+        return 'Smth';
+    }
+  };
+
   const handleRoll = async () => {
     if (rolling) return;
     setRolling(true);
@@ -40,6 +60,7 @@ function App() {
       setActionDescription(data.description);
       if (data.videoSrc) {
         setEventVideoSrc(data.videoSrc);
+        setEventTitle(getEventTitle(data.action));
         setShowEventVideo(true);
       }
     } catch (error) {
@@ -50,7 +71,7 @@ function App() {
   };
 
   if (showEventVideo) {
-    return <EventVideo onComplete={handleEventVideoComplete} videoSrc={eventVideoSrc} />;
+    return <EventVideo onComplete={handleEventVideoComplete} videoSrc={eventVideoSrc} title={eventTitle} />;
   }
   
   if (!hasWatchedMainVideo) {

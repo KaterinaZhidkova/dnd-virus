@@ -4,6 +4,7 @@ import './VideoLauncher.css';
 interface CrashVideoProps {
   onComplete: () => void;
   videoSrc: string;
+  title?: string;
 }
 
 export default function CrashVideo({ onComplete, videoSrc }: CrashVideoProps) {
