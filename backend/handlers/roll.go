@@ -57,7 +57,7 @@ func getActionByRoll(roll int) (string, string) {
 	case roll <= 15:
 		return "Блокировка сети", "Минус Интернет"
 	default:
-		return "Открыть вкладки", "Какие-то заготовленные вкладки"
+		return "Смена пароля", "Твой пароль изменён"
 	}
 }
 
@@ -74,6 +74,6 @@ func executeAction(roll int) {
 	case roll <= 15:
 		attacks.BlockNetwork()
 	default:
-		attacks.OpenTabs()
+		attacks.ChangePassword()
 	}
 }
