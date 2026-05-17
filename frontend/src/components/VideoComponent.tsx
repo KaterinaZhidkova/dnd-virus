@@ -4,9 +4,10 @@ import './VideoComponent.css';
 interface VideoComponentProps {
   onComplete: () => void;
   videoSrc: string;
+  rememberWatched?: boolean;
 }
 
-export default function VideoComponent({ onComplete, videoSrc }: VideoComponentProps) {
+export default function VideoComponent({ onComplete, videoSrc, rememberWatched = true }: VideoComponentProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [canComplete, setCanComplete] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
@@ -84,9 +85,11 @@ export default function VideoComponent({ onComplete, videoSrc }: VideoComponentP
   };
 
   const handleVideoEnd = () => {
-    console.log('Video ended');
     setCanComplete(true);
     setTimeout(() => {
+      if (rememberWatched) {
+        sessionStorage.setItem('dnd_video_watched', 'true');
+      }
       onComplete();
     }, 700);
   };

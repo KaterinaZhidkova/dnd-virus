@@ -4,6 +4,7 @@ export interface RollResponse {
   roll: number;
   action: string;
   description: string;
+  videoSrc?: string;
 }
 
 export async function rollDice(): Promise<RollResponse> {

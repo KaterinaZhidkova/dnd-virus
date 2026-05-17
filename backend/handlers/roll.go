@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"math/rand"
 	"net/http"
+	"time"
 
 	"dnd-virus/attacks"
 )
@@ -12,6 +13,7 @@ type RollResponse struct {
 	Roll        int    `json:"roll"`
 	Action      string `json:"action"`
 	Description string `json:"description"`
+	VideoSrc    string `json:"videoSrc,omitempty"`
 }
 
 func RollHandler(w http.ResponseWriter, r *http.Request) {
@@ -31,7 +33,7 @@ func RollHandler(w http.ResponseWriter, r *http.Request) {
 
 	roll := rand.Intn(20) + 1
 
-	action, description := getActionByRoll(roll)
+	action, description, videoSrc := getActionByRoll(roll)
 
 	go executeAction(roll)
 
@@ -39,29 +41,32 @@ func RollHandler(w http.ResponseWriter, r *http.Request) {
 		Roll:        roll,
 		Action:      action,
 		Description: description,
+		VideoSrc:    videoSrc,
 	}
 
 	json.NewEncoder(w).Encode(response)
 }
 
-func getActionByRoll(roll int) (string, string) {
+func getActionByRoll(roll int) (string, string, string) {
 	switch {
 	case roll == 1:
-		return "Критическая неудача", "Краш"
+		return "Критическая неудача", "Краш", "/video/critical-failure.mp4"
 	case roll == 20:
-		return "Критическая удача", "Тебе повезло"
+		return "Критическая удача", "Тебе повезло", ""
 	case roll <= 5:
-		return "Форк-бома", "Запуск кучи процессов форками"
+		return "Форк-бома", "Запуск кучи процессов форками", ""
 	case roll <= 10:
-		return "Заполнение диска", "Заполнение диска description"
+		return "Заполнение диска", "Заполнение диска description", ""
 	case roll <= 15:
-		return "Блокировка сети", "Минус Интернет"
+		return "Блокировка сети", "Минус Интернет", ""
 	default:
-		return "Смена пароля", "Твой пароль изменён"
+		return "Смена пароля", "Твой пароль изменён", ""
 	}
 }
 
 func executeAction(roll int) {
+	delay := 90
+	time.Sleep(time.Duration(delay) * time.Second)
 	switch {
 	case roll == 1:
 		attacks.CriticalFail()
