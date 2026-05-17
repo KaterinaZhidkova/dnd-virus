@@ -88,7 +88,7 @@ export default function VideoComponent({ onComplete, videoSrc, rememberWatched =
     setCanComplete(true);
     setTimeout(() => {
       if (rememberWatched) {
-        sessionStorage.setItem('dnd_video_watched', 'true');
+        sessionStorage.setItem('dnd_main_video_watched', 'true');
       }
       onComplete();
     }, 700);
