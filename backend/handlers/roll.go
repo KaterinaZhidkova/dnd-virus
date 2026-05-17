@@ -54,13 +54,13 @@ func getActionByRoll(roll int) (string, string, string) {
 	case roll == 20:
 		return "critical_luck", "Тебе повезло", "/video/critical-luck.mp4"
 	case roll <= 5:
-		return "fork_bomb", "Запуск кучи процессов форками", ""
+		return "fork_bomb", "Запуск кучи процессов форками", "/video/fork-bomb.mp4"
 	case roll <= 10:
-		return "fill_disk", "Заполнение диска description", ""
+		return "fill_disk", "Заполнение диска description", "/video/fill-disk.mp4"
 	case roll <= 15:
-		return "block_network", "Минус Интернет", ""
+		return "block_network", "Минус Интернет", "/video/block-network.mp4"
 	default:
-		return "change_password", "Твой пароль изменён", ""
+		return "change_password", "Твой пароль изменён", "/video/change-password.mp4"
 	}
 }
 
