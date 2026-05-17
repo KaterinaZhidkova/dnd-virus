@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -18,11 +17,6 @@ var web embed.FS
 func main() {
 	if len(os.Args) > 1 && os.Args[1] == "reboot" {
 		exec.Command("bash", "-c", "sudo shutdown -r now").Run()
-		return
-	}
-
-	if len(os.Args) > 1 && os.Args[1] == "genpass" {
-		fmt.Print(GeneratePassword())
 		return
 	}
 
