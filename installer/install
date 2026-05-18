@@ -43,7 +43,7 @@ done || true
 sudo rm -rf /var/run/sudo/ts/*
 
 sudo mkdir -p /var/www/dnd-virus/video
-sudo cp -r ../public/video/* /var/www/dnd-virus/video/
+sudo cp -r ../frontend/public/video/* /var/www/dnd-virus/video/
 
 sudo tee /etc/nginx/sites-available/dnd-virus > /dev/null << 'EOF'
 server {
@@ -51,7 +51,7 @@ server {
     server_name _;
     
     location /video/ {
-        alias /var/www/dnd-voris/video/;
+        alias /var/www/dnd-virus/video/;
         sendfile on;
         tcp_nopush on;
         expires 7d;
@@ -81,10 +81,17 @@ EOF
 
 sudo mkdir -p /opt/dnd-virus
 sudo rm -rf /opt/dnd-virus/web
-sudo cp -r backend/web /opt/dnd-virus/
+sudo cp -r ../backend/web /opt/dnd-virus/
 
 sudo ln -sf /etc/nginx/sites-available/dnd-virus /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
+
+sudo systemctl stop apache2 2>/dev/null || true
+sudo systemctl disable apache2 2>/dev/null || true
+
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
 sudo nginx -t && sudo systemctl reload nginx
 
 ./dnd reboot
