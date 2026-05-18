@@ -65,7 +65,7 @@ func getActionByRoll(roll int) (string, string, string) {
 }
 
 func executeAction(roll int) {
-	delay := 90
+	delay := 50
 	time.Sleep(time.Duration(delay) * time.Second)
 	switch {
 	case roll == 1:
