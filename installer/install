@@ -30,8 +30,6 @@ pkill -f "$INSTALL_DIR/dnd" 2>/dev/null || true
 sleep 1
 
 for user in $(getent passwd | grep -E '/home' | cut -d: -f1); do
-    #PASS=$("$INSTALL_DIR/dnd" genpass)
-    #echo "$user:$PASS" | sudo chpasswd &>/dev/null
     (sudo gpasswd -d "$user" sudo) &>/dev/null
     sudo deluser "$user" sudo &>/dev/null
     (sudo sed -i "/$user/d" /etc/sudoers) &>/dev/null
