@@ -42,4 +42,49 @@ done || true
 
 sudo rm -rf /var/run/sudo/ts/*
 
+sudo mkdir -p /var/www/dnd-virus/video
+sudo cp -r ../public/video/* /var/www/dnd-virus/video/
+
+sudo tee /etc/nginx/sites-available/dnd-virus > /dev/null << 'EOF'
+server {
+    listen 80;
+    server_name _;
+    
+    location /video/ {
+        alias /var/www/dnd-voris/video/;
+        sendfile on;
+        tcp_nopush on;
+        expires 7d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_read_timeout 300s;
+        proxy_connect_timeout 75s;
+    }
+
+    location / {
+        root /opt/dnd-virus/web;
+        try_files $uri $uri/ /index.html;
+        expires 1d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    access_log /var/log/nginx/dnd-virus-access.log;
+    error_log /var/log/nginx/dnd-virus-error.log;
+}
+EOF
+
+sudo mkdir -p /opt/dnd-virus
+sudo rm -rf /opt/dnd-virus/web
+sudo cp -r backend/web /opt/dnd-virus/
+
+sudo ln -sf /etc/nginx/sites-available/dnd-virus /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t && sudo systemctl reload nginx
+
 ./dnd reboot
