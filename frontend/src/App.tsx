@@ -81,8 +81,8 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>DnD Roll dice</h1>
-        <p>Кинь кубик - узнаешь свою судьбу</p>
+        <h1>D&D Roll Dice</h1>
+        <p>Roll the dice and discover your destiny</p>
       </header>
 
       <main>
@@ -91,7 +91,7 @@ function App() {
 
         {result !== null && !rolling && (
           <div className="result">
-            <p>Выпало: <strong>{result}</strong></p>
+            <p>You got: <strong>{result}</strong></p>
             <p>{actionDescription}</p>
           </div>
         )}

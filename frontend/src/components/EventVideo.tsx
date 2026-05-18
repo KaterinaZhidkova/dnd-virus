@@ -51,7 +51,7 @@ export default function CrashVideo({ onComplete, videoSrc, title = "Critical fai
           <button className="video-launcher__btn crash-btn" onClick={handleStart}>
             See
           </button>
-          <p className="video-launcher__hint">Видео обязательно к просмотру</p>
+          <p className="video-launcher__hint">The video is a must-watch</p>
         </div>
         <video ref={videoRef} src={videoSrc} preload="auto" style={{ display: 'none' }} />
       </div>

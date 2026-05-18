@@ -51,7 +51,7 @@ export default function VideoComponent({ onComplete, videoSrc, rememberWatched =
     const video = videoRef.current;
     if (!video) {
       console.error('Video ref is null');
-      setError('Видео не найдено');
+      setError('Video not found');
       return;
     }
 
@@ -70,15 +70,15 @@ export default function VideoComponent({ onComplete, videoSrc, rememberWatched =
         })
         .catch(err => {
           console.error('Play failed:', err);
-          setError(`Не удалось запустить видео: ${err.message}`);
+          setError(`Failed to start video: ${err.message}`);
           video.muted = true;
           video.play().then(() => {
             console.log('Video started muted as fallback');
             setHasStarted(true);
-            setError('Звук заблокирован');
+            setError('Sound is blocked');
           }).catch(e => {
             console.error('Even muted play failed:', e);
-            setError('Ошибка воспроизведения видео');
+            setError('Video playback error');
           });
         });
     }
@@ -98,15 +98,15 @@ export default function VideoComponent({ onComplete, videoSrc, rememberWatched =
     return (
       <div className="video-splash">
         <div className="video-splash__start-screen">
-          <h1 className="video-splash__title">Добро пожаловать, приключенец!</h1>
+          <h1 className="video-splash__title">We welcome you, Adventurer!</h1>
           <button className="video-splash__start-btn" onClick={handleStart}>
-            Начать приключение!
+            Start the Adventure!
           </button>
           {error && (
             <p className="video-splash__error">{error}</p>
           )}
           <p className="video-splash__start-hint">
-            Видео обязательно к просмотру до конца
+            You must watch video to the end!
           </p>
         </div>
         <video
@@ -114,7 +114,7 @@ export default function VideoComponent({ onComplete, videoSrc, rememberWatched =
           src={videoSrc}
           preload="auto"
           style={{ display: 'none' }}
-          onError={() => setError('Видео не загрузилось, проверьте путь')}
+          onError={() => setError('The video did not load, check the path')}
         />
       </div>
     );

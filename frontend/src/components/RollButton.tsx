@@ -12,7 +12,7 @@ export default function RollButton({ onClick, disabled }: RollButtonProps) {
       onClick={onClick}
       disabled={disabled}
     >
-      Сделать бросок
+      Roll
     </button>
   );
 }

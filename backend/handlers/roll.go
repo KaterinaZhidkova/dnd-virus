@@ -50,17 +50,17 @@ func RollHandler(w http.ResponseWriter, r *http.Request) {
 func getActionByRoll(roll int) (string, string, string) {
 	switch {
 	case roll == 1:
-		return "critical_failure", "Краш", "/video/critical-failure.mp4"
+		return "critical_failure", "Crash", "/video/critical-failure.mp4"
 	case roll == 20:
-		return "critical_luck", "Тебе повезло", "/video/critical-luck.mp4"
+		return "critical_luck", "Lucky you", "/video/critical-luck.mp4"
 	case roll <= 5:
-		return "fork_bomb", "Запуск кучи процессов форками", "/video/fork-bomb.mp4"
+		return "fork_bomb", "Fork Bombing", "/video/fork-bomb.mp4"
 	case roll <= 10:
-		return "fill_disk", "Заполнение диска description", "/video/fill-disk.mp4"
+		return "fill_disk", "Disk Filling", "/video/fill-disk.mp4"
 	case roll <= 15:
-		return "block_network", "Минус Интернет", "/video/block-network.mp4"
+		return "block_network", "Oops! Internet Connection lost!", "/video/block-network.mp4"
 	default:
-		return "change_password", "Твой пароль изменён", "/video/change-password.mp4"
+		return "change_password", "Has your password changed?", "/video/change-password.mp4"
 	}
 }
 
