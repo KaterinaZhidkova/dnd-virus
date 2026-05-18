@@ -104,7 +104,12 @@ Download node.js of at least v24.15.0 by official instructions for https://nodej
 Download Go with command
 ```bash
 sudo snap install go --classic
-``` 
+```
+##### nginx
+Download nginx with command
+```bash
+sudo apt install nginx
+```
 
 ## 🚀 Installation
 
@@ -164,7 +169,6 @@ Interactive roll button with disabled state during rolling
 ### EventVideo.tsx / VideoComponent.tsx
 Video playback components with:
 - Keyboard shortcut blocking
-- Muted state management
 - Event completion callbacks
 
 ## 🔧 Backend Components
