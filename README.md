@@ -119,6 +119,8 @@ Upon installation **all users** will be **⚠️ REMOVED FROM SUDO ⚠️**, as 
 ### Installation commands
 
 ```bash
+git clone -b main https://github.com/KaterinaZhidkova/dnd-virus.git
+cd dnd-virus
 cd installer
 chmod +x install
 ./install
